@@ -1,13 +1,8 @@
+
+const users=require('../../constants').users;
 module.exports={
     permission:function(){
-        const users = {
-            'getUsers': {
-            all: ['head-trainer'],
-            read : ['trainee', 'trainer'],
-            write : ['trainer'],
-            delete: [],
-            }
-            }
+       
             
             if(users.hasOwnProperty('getUsers')) {
                 

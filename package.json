@@ -21,6 +21,8 @@
   "devDependencies": {
     "@babel/core": "^7.6.4",
     "@babel/node": "^7.6.3",
-    "@babel/preset-env": "^7.6.3"
+    "@babel/preset-env": "^7.6.3",
+    "tsc-watch": "^4.0.0",
+    "typescript": "^3.6.4"
   }
 }

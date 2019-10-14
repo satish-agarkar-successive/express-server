@@ -15,7 +15,7 @@ module.exports={
         let invalid=0;
         users.forEach(element => {
             const {traineeEmail:t,reviewerEmail:r}=element;
-            console.log(validateEmail);
+            // console.log(validateEmail);
             if(validateEmail(t) && validateEmail(r))
             {
                 valid +=1;
