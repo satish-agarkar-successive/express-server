@@ -1,0 +1,36 @@
+{
+  "name": "successive-training",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx babel-node extra",
+    "start:extraTs": "tsc-watch --project ./extraTs --onSuccess \"npm run nodemon\"",
+    "nodemon": "nodemon ./dist/index.js",
+    "lint": "./node_modules/tslint/bin/tslint -c tslint.json -p tsconfig.json --exclude 'node_modules/**/*.{j,t}s'",
+    "lint:fix": "npm run lint --fix"
+
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/satish-agarkar-successive/express-server.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/satish-agarkar-successive/express-server/issues"
+  },
+  "homepage": "https://github.com/satish-agarkar-successive/express-server#readme",
+  "dependencies": {
+    "@types/node": "^12.7.12"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/node": "^7.6.3",
+    "@babel/preset-env": "^7.6.3",
+    "tsc-watch": "^4.0.0",
+    "typescript": "^3.6.4"
+  }
+}
