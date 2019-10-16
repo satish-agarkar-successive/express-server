@@ -1,4 +1,5 @@
-export function diamond_print() {
+export function diamond_print() 
+{
     let n=5;
     let space = n - 1;
 
