@@ -1,7 +1,7 @@
-import {configEnv} from './config/configuration';
+import { configEnv } from './config/configuration';
 
-import {Server} from './Server';
+import { Server } from './Server';
 
-const server = new Server(configEnv)
+const server = new Server(configEnv);
 
 server.bootstrap();

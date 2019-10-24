@@ -1,27 +1,27 @@
 export const permissions: any = {
-    getUsers: {
+    deleteUsers: {
         all: ['head-trainer'],
+        delete: ['head-trainer'],
         read: ['trainee', 'trainer'],
         write: ['trainer'],
+    },
+    getUsers: {
+        all: ['head-trainer'],
         delete: ['trainer'],
+        read: ['trainee', 'trainer'],
+        write: ['trainer'],
     },
     postUsers: {
         all: ['head-trainer'],
-        read: ['trainee', 'trainer'],
-        write: ['trainer'],
         delete: [],
-    },
-    deleteUsers: {
-        all: ['head-trainer'],
         read: ['trainee', 'trainer'],
         write: ['trainer'],
-        delete: ['head-trainer'],
     },
     updateUsers: {
         all: ['head-trainer'],
-        read: ['trainee', 'trainer'],
-        write: ['trainer'],
         delete: ['trainer'],
-        update: ['head-trainer', 'trainer']
-    }
-}
+        read: ['trainee', 'trainer'],
+        update: ['head-trainer', 'trainer'],
+        write: ['trainer'],
+    },
+};
