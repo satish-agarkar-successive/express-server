@@ -1,3 +1,3 @@
 
-import {permission} from "./Permission/permissions";
-export default permission
+import { hasPermission }from "./Permission/permissions";
+export default hasPermission
