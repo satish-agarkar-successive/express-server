@@ -1,13 +1,18 @@
 import { Request, Response, NextFunction } from 'express';
 
-let date_ob = new Date();
+let dateOb = new Date();
 
-export var error_middleware = function (rreq: Request, res: Response, next: NextFunction) {
-    error: "Not Found";
-    message: "error";
-    status: 500;
-    timestamp: date_ob;
+export const error_middleware = (req: Request, res: Response, next: NextFunction) => {
 
+    if (req.accepts('json')) {
+
+        res.send({
+            error: 'Not Found',
+            message: 'error',
+            status: 500,
+            timestamp: dateOb,
+        });
+    }
     next();
-}
+};
 
