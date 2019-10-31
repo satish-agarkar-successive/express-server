@@ -1,4 +1,5 @@
 import * as mongoose from 'mongoose';
+import seedData from './seedData';
 
 export class Database {
     public open(dbConnectionString: string) {
@@ -9,7 +10,7 @@ export class Database {
                 reject(error)
             })
             mongoose.connection.on('connected', (connected) => {
-                
+                seedData();
                 resolve(true);
             })
         })
