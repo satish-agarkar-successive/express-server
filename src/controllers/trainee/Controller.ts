@@ -39,7 +39,7 @@ class Controller {
             });
         } else {
             res.status(200).json({
-                msg: 'user not found ' + req.params.noteId,
+                msg: 'Delete this user ' + req.params.noteId,
                 param: req.userData,
             });
         }

@@ -1,7 +1,9 @@
+import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
+import { configEnv } from '../src/config/configuration';
 import UserSchema from '../src/repositories/user/UserSchema';
 
-export default () => {
+export default async () => {
 
     const seedData = [
         {
@@ -9,21 +11,21 @@ export default () => {
             name: 'Trainee',
             email: 'trainee@successive.tech',
             role: 'trainee',
-            password: 'successive1',
+            password: await bcrypt.hash('successive1', configEnv.SALT),
         },
         {
             sub: 'Learn and Implement',
             name: 'Head Trainer',
             email: 'head.trainer@successive.tech',
             role: 'head-trainer',
-            password: 'successive2',
+            password: await bcrypt.hash('successive2', configEnv.SALT),
         },
         {
             sub: 'Test Database',
             name: 'Satish Agarkar',
             email: 'sragarkar27@gmail.com',
             role: 'head-trainer',
-            password: 'successive2',
+            password: await bcrypt.hash('satish1', configEnv.SALT),
         },
     ];
     UserSchema.countDocuments('', (err: any, count: any) => {
@@ -31,25 +33,22 @@ export default () => {
         if (count === 0) {
             UserSchema.insertMany(seedData).then((users: any) => {
                 console.log('data seeded');
+            // tslint:disable-next-line: no-shadowed-variable
             }).catch((err: any) => {
                 console.log(err);
-            })
+            });
         }
         if (err) {
             console.log(err);
         }
         UserSchema.findOne().then((user: any) => {
-
-            // user.forEach(function(element: any) {
-            //     console.log(element);
-            //   });
             const data = {_id : user._id as any, email: user.email as any};
-            // token create
-            const token = jwt.sign(data, process.env.SECRET as jwt.Secret, { expiresIn: '1h' });
-            // console.log(token);
-        }).catch((err: any) => {
+            const token = jwt.sign(data, process.env.SECRET as jwt.Secret, { expiresIn: '15m' });
+            console.log(token);
+        // tslint:disable-next-line: no-shadowed-variable
+        }).catch(err => {
             console.log(err);
         });
         console.log('Already data is seeded');
-    })
-}
+    });
+};
