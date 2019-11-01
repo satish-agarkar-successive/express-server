@@ -5,24 +5,24 @@ export default () => {
 
     const seedData = [
         {
-            sub: "Learn and Implement",
-            name: "Trainee",
-            email: "trainee@successive.tech",
-            role: "trainee",
+            sub: 'Learn and Implement',
+            name: 'Trainee',
+            email: 'trainee@successive.tech',
+            role: 'trainee',
             password: 'successive1',
         },
-        {   
-            sub: "Learn and Implement",
-            name: "Head Trainer",
-            email: "head.trainer@successive.tech",
-            role: "head-trainer",
+        {
+            sub: 'Learn and Implement',
+            name: 'Head Trainer',
+            email: 'head.trainer@successive.tech',
+            role: 'head-trainer',
             password: 'successive2',
         },
         {
-            sub: "Test Database",
-            name: "Satish Agarkar",
-            email: "sragarkar27@gmail.com",
-            role: "head-trainer",
+            sub: 'Test Database',
+            name: 'Satish Agarkar',
+            email: 'sragarkar27@gmail.com',
+            role: 'head-trainer',
             password: 'successive2',
         },
     ];
@@ -30,7 +30,7 @@ export default () => {
         console.log('Seeding Data ....');
         if (count === 0) {
             UserSchema.insertMany(seedData).then((users: any) => {
-                console.log("data seeded")
+                console.log('data seeded');
             }).catch((err: any) => {
                 console.log(err);
             })
@@ -39,11 +39,14 @@ export default () => {
             console.log(err);
         }
         UserSchema.findOne().then((user: any) => {
-            console.log(user._id);
+
+            // user.forEach(function(element: any) {
+            //     console.log(element);
+            //   });
             const data = {_id : user._id as any, email: user.email as any};
-            console.log(data);
+            // token create
             const token = jwt.sign(data, process.env.SECRET as jwt.Secret, { expiresIn: '1h' });
-            console.log(token);
+            // console.log(token);
         }).catch((err: any) => {
             console.log(err);
         });

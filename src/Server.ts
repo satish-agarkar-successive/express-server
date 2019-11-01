@@ -9,7 +9,6 @@ import { IConfig } from './config/IConfig';
 import router from './router';
 
 import bodyParser = require('body-parser');
-
 import { Database } from '../libs/Database';
 
 export class Server {
@@ -45,13 +44,15 @@ export class Server {
     }
     public async run() {
 
-        let isConnected = await this.database.open(this.dbConnectionString);
-        try {
-            this.app.listen(this.PORT, () => {
-                console.log(`server is up and listening on ${this.PORT}`);
-            });
-        } catch (error) {
-            console.log(error);
+        const isConnected = await this.database.open(this.dbConnectionString);
+        if (isConnected) {
+            try {
+                this.app.listen(this.PORT, () => {
+                    console.log(`server is up and listening on ${this.PORT}`);
+                });
+            } catch (error) {
+                console.log(error);
+            }
         }
     }
     private initBodyParser() {
@@ -61,4 +62,3 @@ export class Server {
     }
 }
 // module.exports = router;
-

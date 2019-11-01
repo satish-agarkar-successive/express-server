@@ -1,7 +1,7 @@
 export const permissions: any = {
     deleteUsers: {
         all: ['head-trainer'],
-        delete: ['head-trainer'],
+        delete: ['head-trainer', 'trainer'],
         read: ['trainee', 'trainer'],
         write: ['trainer'],
     },

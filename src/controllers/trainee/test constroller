@@ -1,0 +1,131 @@
+import { NextFunction, Request, Response } from 'express';
+import * as jwt from 'jsonwebtoken';
+import UserSchema from '../../../src/repositories/user/UserSchema';
+
+class Controller {
+    public create = (req: any, res: Response, next: NextFunction) => {
+        res.status(200).json({
+            body: req.userData,
+            msg: 'Create and Save a new trainee',
+        });
+    };
+
+    public findAll = (req: any, res: Response, next: NextFunction) => {
+        res.status(200).json({
+            msg: 'Retrieve and return all trainee from the database',
+            params: req.userData,
+
+        });
+    };
+
+    public findone = (req: any, res: Response, next: NextFunction) => {
+        res.status(200).json({
+            body: req.userData,
+            msg: 'Find a single note with a trainee id' + req.params.noteId,
+        });
+    };
+
+    public update = (req: any, res: Response, next: NextFunction) => {
+        res.status(200).json({
+            body: req.userData,
+            msg: 'Update a note identified by the trainee is in the request',
+        });
+    };
+    public delete = (req: any, res: Response, next: NextFunction) => {
+        if (req.userData._id == req.params.noteId) {
+            res.status(200).json({
+                msg: 'Delete a note with the specified trainee id in the request ' + req.params.noteId,
+                param: req.userData,
+            });
+        } else {
+            res.status(200).json({
+                msg: 'user not found ' + req.params.noteId,
+                param: req.userData._id,
+            });
+        }
+    };
+    public getTokenUser(req: any, res: Response, next: NextFunction) {
+        UserSchema.find().then((user: any) => {
+
+            const data = { _id: user._id as any, email: user.email as any };
+            const tokenVal = jwt.sign(data, process.env.SECRET as jwt.Secret, { expiresIn: '1h' });
+            res.status(200).json({
+                token: tokenVal,
+
+            });
+
+        }).catch((err: any) => {
+            console.log(err);
+        });
+    }
+
+}
+
+export const controller = new Controller();
+
+import * as jwt from 'jsonwebtoken';
+import UserSchema from '../src/repositories/user/UserSchema';
+
+export default () => {
+
+    const seedData = [
+        {
+            sub: "Learn and Implement",
+            name: "Trainee",
+            email: "trainee@successive.tech",
+            role: "trainee",
+            password: 'successive1',
+        },
+        {
+            sub: "Learn and Implement",
+            name: "Head Trainer",
+            email: "head.trainer@successive.tech",
+            role: "head-trainer",
+            password: 'successive2',
+        },
+        {
+            sub: "Test Database",
+            name: "Satish Agarkar",
+            email: "sragarkar27@gmail.com",
+            role: "head-trainer",
+            password: 'successive2',
+        },
+    ];
+    UserSchema.countDocuments('', (err: any, count: any) => {
+        console.log('Seeding Data ....');
+        if (count === 0) {
+            UserSchema.insertMany(seedData).then((users: any) => {
+                console.log("data seeded")
+            }).catch((err: any) => {
+                console.log(err);
+            })
+        }
+        if (err) {
+            console.log(err);
+        }
+        UserSchema.find().then((user: any) => {
+            // console.log(user);
+            // for (var i = 0, len = user.length; i < len; i++) {
+            //     console.log(user[i]);
+            //     }
+            // user.forEach(function () {
+
+            // });
+            for (var i = 0, len = user.length; i < len; i++) {
+            const data = { _id: user[i]._id as any, email: user[i].email as any };
+            console.log(user[i]._id);
+            const token = jwt.sign(data, process.env.SECRET as jwt.Secret, { expiresIn: '1h' });
+            console.log(token + '\n');
+
+                // console.log(user[i]._id);
+                }
+            // const data = { _id: user._id as any, email: user.email as any };
+            // console.log(data);
+            // const token = jwt.sign(data, process.env.SECRET as jwt.Secret, { expiresIn: '1h' });
+            // console.log(token);
+        }).catch((err: any) => {
+            console.log(err);
+        });
+        console.log('Already data is seeded');
+    })
+}

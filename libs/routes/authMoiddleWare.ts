@@ -12,14 +12,13 @@ export const authMiddleWare = (moduleName: string, permissionType: string) =>
 
       req.userData = decoded;
       const { _id } = decoded;
-      // console.log("Scema data" + UserSchema +" scema");
       await UserSchema.findOne({ _id: mongoose.Types.ObjectId(_id) }).then((data: any) => {
-        console.log(data);
         if (data === null) {
           res.status(404).json({
             msg: 'User not found in the system',
 
           });
+          // console.log("msg");
         }
 
         req.userData.role = data.role;
@@ -33,17 +32,14 @@ export const authMiddleWare = (moduleName: string, permissionType: string) =>
         });
       }
 
-      // console.log(moduleName, decoded.role, permissionType);
+      console.log(moduleName, decoded.role, permissionType);
       if (!hasPermission(moduleName, decoded.role, permissionType)) {
         console.log(moduleName, decoded.role, permissionType);
         res.status(401).json({
           msg: 'Unauthorized Access',
         });
-      } else {
-        res.status(200).json({
-          msg: 'success',
-          userdata: decoded,
-        });
       }
+      req.userData = decoded;
+      next();
     });
   };
