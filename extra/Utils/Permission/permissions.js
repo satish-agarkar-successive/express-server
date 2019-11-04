@@ -1,9 +1,9 @@
 
 const users=require('../../constants').users;
+
 module.exports={
     permission:function(){
        
-            
             if(users.hasOwnProperty('getUsers')) {
                 
              if(users['getUsers'].hasOwnProperty('read')) {
