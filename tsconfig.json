@@ -4,7 +4,7 @@
       "module": "commonjs", 
       "strict": true,
       "baseUrl": "/",
-      "outDir": "../dist",
+      "outDir": "./dist",
       "sourceMap": true,
       "experimentalDecorators": true,
       "emitDecoratorMetadata": true,
@@ -14,8 +14,8 @@
       ]
     },
     "include": [
-      "../extraTs",
-      "../src"
+      "./extraTs",
+      "./src"
     ],
     "exclude": [
       "../node_modules"
