@@ -10,12 +10,21 @@ import router from './router';
 
 import bodyParser = require('body-parser');
 
+import { Database } from '../libs/Database';
+
 export class Server {
+    database = new Database;
     public app: any;
     public PORT: number;
+    public dbConnectionString: string;
+    public NODE_ENV: String;
     constructor(config: IConfig) {
+
         this.app = express();
         this.PORT = config.PORT;
+        this.PORT = config.PORT || 9000;
+        this.NODE_ENV = config.NODE_ENV;
+        this.dbConnectionString = String(config.MONGO_URL);
     }
 
     public bootstrap() {
@@ -34,7 +43,9 @@ export class Server {
         this.app.use(notfount_middleware);
         this.app.use(error_middleware);
     }
-    public run() {
+    public async run() {
+
+        let isConnected = await this.database.open(this.dbConnectionString);
         try {
             this.app.listen(this.PORT, () => {
                 console.log(`server is up and listening on ${this.PORT}`);
@@ -50,3 +61,4 @@ export class Server {
     }
 }
 // module.exports = router;
+
