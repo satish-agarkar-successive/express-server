@@ -1,11 +1,14 @@
 import * as express from 'express';
 
-import {IConfig} from './config/IConfig';
-
 import {notfount_middleware} from './../libs/routes/notFoundRoute';
 import {error_middleware} from './../libs/routes/errorHandler';
 
-var bodyParser = require('body-parser')
+import {IConfig} from './config/IConfig';
+
+import router from './router'
+
+
+var bodyParser = require('body-parser');
 
 export class Server {
     public app: any;
@@ -28,7 +31,9 @@ export class Server {
             });
             this.app.use(notfount_middleware);
             this.app.use(error_middleware)
-        })
+
+        });
+        this.app.use('/api', router);
     }
     run() {
         try {
